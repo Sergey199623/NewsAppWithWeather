@@ -1,7 +1,9 @@
 package com.sv.newsapp.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -17,14 +19,13 @@ import com.sv.newsapp.data.WeatherData;
 import com.sv.newsapp.models.api.Api;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private GoogleMap mMap;
 
-    private Api mApi = Api.Instance.getApi();
+    private final Api mApi = Api.Instance.getApi();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,36 +35,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        findViewById(R.id.moscow_button).setOnClickListener(this);
+        findViewById(R.id.spb_button).setOnClickListener(this);
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+    @SuppressLint("CheckResult")
+    private void receiveWeather(final String city) {
+        mApi.getWeatherDataByCity(city, "d3e76d9f4759e01c064d1b34ba9ff19e",
+                "metric")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(weatherData -> showWeatherMarker(weatherData));
+    }
+
+    private void showWeatherMarker(WeatherData weatherData) {
+        LatLng latLng = new LatLng(weatherData.getCoord().getLat(), weatherData.getCoord().getLon());
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Temp: "
+                + weatherData.getMain().getTemp())).showInfoWindow();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+    }
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-        mApi.getWeatherDataByCity("Moscow", "d3e76d9f4759e01c064d1b34ba9ff19e",
-                "metrics")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<WeatherData>() {
-                    @Override
-                    public void accept(WeatherData weatherData) {
-                        Toast.makeText(MapsActivity.this, weatherData.getName() + " "
-                                + weatherData.getMain().getTemp(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+    @Override
+    public void onClick(View v) {
+        receiveWeather(((Button)v).getText().toString());
     }
 }

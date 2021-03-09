@@ -1,6 +1,13 @@
 <resources>
+
     <string name="app_name">NewsApp</string>
     <string name="top_headlines">Главные русскоязычные новости</string>
     <string name="top_headlines_euro">Главные европейские новости</string>
     <string name="title_activity_maps">Map</string>
+    <string name="moscow">Moscow</string>
+    <string name="spb">Saint Petersburg</string>
+    <string name="bishkek">BISHKEK</string>
+    <string name="current_location">Current location</string>
+    <string name="samara">Samara</string>
+
 </resources>
