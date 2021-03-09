@@ -216,10 +216,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_weather) {
-//            Intent intent = new Intent(Intent.ACTION_VIEW);
-//            intent.setData(Uri.parse(mUrl));
-//            startActivity(intent);
-//            return true;
+            Intent intent = new Intent(this, MapsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.action_settings) {
 //            try {
 //                Intent intent = new Intent(Intent.ACTION_SEND);
