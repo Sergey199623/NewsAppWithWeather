@@ -11,7 +11,8 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 object ApiClient {
-    const val BASE_URL = "https://newsapi.org/v2/"
+
+    private const val BASE_URL = "https://newsapi.org/v2/"
     var retrofit: Retrofit? = null
 
     @JvmStatic

@@ -1,6 +1,7 @@
 package com.sv.newsapp.activities;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -10,11 +11,20 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 import com.sv.newsapp.R;
+import com.sv.newsapp.data.WeatherData;
+import com.sv.newsapp.models.api.Api;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+
+    private Api mApi = Api.Instance.getApi();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,5 +53,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        mApi.getWeatherDataByCity("Moscow", "d3e76d9f4759e01c064d1b34ba9ff19e",
+                "metrics")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<WeatherData>() {
+                    @Override
+                    public void accept(WeatherData weatherData) {
+                        Toast.makeText(MapsActivity.this, weatherData.getName() + " "
+                                + weatherData.getMain().getTemp(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
