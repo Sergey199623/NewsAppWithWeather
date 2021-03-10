@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 
 public interface Api {
 
-    static String DOMAIN = "https://api.openweathermap.org/";
+    String DOMAIN = "https://api.openweathermap.org/";
 
     @GET("data/2.5/weather")
     Observable<WeatherData> getWeatherDataByCity(

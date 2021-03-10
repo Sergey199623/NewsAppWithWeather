@@ -1,10 +1,15 @@
 package com.sv.newsapp.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,6 +43,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         findViewById(R.id.moscow_button).setOnClickListener(this);
         findViewById(R.id.spb_button).setOnClickListener(this);
+        findViewById(R.id.news_button).setOnClickListener(v -> {
+            Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 
     @SuppressLint("CheckResult")
@@ -54,6 +63,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(latLng).title("Temp: "
                 + weatherData.getMain().getTemp())).showInfoWindow();
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_weather, menu);
+
+        return true;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_weather) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.action_settings) {
+//
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

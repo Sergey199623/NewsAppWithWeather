@@ -42,11 +42,11 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private final String API_KEY = "041507c2165e4544b6fbdb2eb40dfa55";
+
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private List<Article> articles = new ArrayList<>();
     private Adapter adapter;
-    private ImageView btnSwitch;
     private String TAG = MainActivity.class.getSimpleName();
     private TextView topHeadLine;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private void initListener() {
         adapter.setOnItemClickListener((view, position) -> {
 //            ImageView imageView = view.findViewById(R.id.img);
-            Intent intent = new Intent(MainActivity.this, NewsDetailActivity.class);
+            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
 
             Article article = articles.get(position);
             intent.putExtra("url", article.getUrl());
@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_weather) {
-            Intent intent = new Intent(this, MapsActivity.class);
+            Intent intent = new Intent(this, WeatherActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_settings) {
 //            try {

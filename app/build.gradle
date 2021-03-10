@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.sv.newsapp"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -41,6 +41,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'androidx.wear:wear:1.0.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -59,6 +60,8 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
 
+    implementation 'com.android.volley:volley:1.2.0'
+
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
@@ -67,4 +70,5 @@ dependencies {
     }
 
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.4.Final'
+    compileOnly 'com.google.android.wearable:wearable:2.6.0'
 }
