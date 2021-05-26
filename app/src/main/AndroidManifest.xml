@@ -27,7 +27,7 @@
             android:name=".activities.WeatherActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
         <activity
-            android:name=".NewsDetailActivity"
+            android:name=".activities.NewsDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.MapsActivity"

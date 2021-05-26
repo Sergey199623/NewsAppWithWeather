@@ -1,4 +1,4 @@
-package com.sv.newsapp
+package com.sv.newsapp.activities
 
 import android.content.Intent
 import android.net.Uri
@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.sv.newsapp.R
 import com.sv.newsapp.utils.Utils.DateFormat
 import com.sv.newsapp.utils.Utils.DateToTimeFormat
 import com.sv.newsapp.utils.Utils.randomDrawbleColor

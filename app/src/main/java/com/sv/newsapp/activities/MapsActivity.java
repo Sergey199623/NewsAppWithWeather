@@ -18,7 +18,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import com.sv.newsapp.R;
 import com.sv.newsapp.data.WeatherData;
 import com.sv.newsapp.models.api.Api;
@@ -43,10 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         findViewById(R.id.moscow_button).setOnClickListener(this);
         findViewById(R.id.spb_button).setOnClickListener(this);
-        findViewById(R.id.news_button).setOnClickListener(v -> {
-            Intent intent = new Intent(MapsActivity.this, MainActivity.class);
-            startActivity(intent);
-        });
+        findViewById(R.id.news_button).setOnClickListener(this);
     }
 
     @SuppressLint("CheckResult")

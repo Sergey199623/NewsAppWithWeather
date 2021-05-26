@@ -1,6 +1,5 @@
 package com.sv.newsapp.activities;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MenuItem;

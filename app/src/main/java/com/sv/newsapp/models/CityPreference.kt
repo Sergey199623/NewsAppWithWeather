@@ -1,24 +1,20 @@
-package com.sv.newsapp.models;
+package com.sv.newsapp.models
 
-import android.app.Activity;
-import android.content.SharedPreferences;
+import android.app.Activity
+import android.content.SharedPreferences
 
-public class CityPreference {
-
-    SharedPreferences prefs;
-
-    public CityPreference(Activity activity){
-        prefs = activity.getPreferences(Activity.MODE_PRIVATE);
-    }
+class CityPreference(activity: Activity) {
+    var prefs: SharedPreferences
 
     // If the user has not chosen a city yet, return
     // Sydney as the default city
-    public String getCity(){
-        return prefs.getString("city", "Sydney, AU");
-    }
+    var city: String?
+        get() = prefs.getString("city", "Sydney, AU")
+        set(city) {
+            prefs.edit().putString("city", city).apply()
+        }
 
-    public void setCity(String city){
-        prefs.edit().putString("city", city).commit();
+    init {
+        prefs = activity.getPreferences(Activity.MODE_PRIVATE)
     }
-
 }
