@@ -7,7 +7,6 @@ import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +17,6 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -32,6 +30,8 @@ class WeatherMainActivity : AppCompatActivity() {
     // weather url to get JSON
     private var weather_url1 = ""
 
+    private val url_image = "https://www.weatherbit.io/static/img/icons/"
+
     // api id for url
     private var api_id1 = "a51cd2648ecc4b2cbea36c7ef8c9376b"
 
@@ -44,7 +44,7 @@ class WeatherMainActivity : AppCompatActivity() {
     private lateinit var tv2: TextView
     private lateinit var tv3: TextView
     private lateinit var tv4: TextView
-    private lateinit var btVar1: Button
+//    private lateinit var btVar1: Button
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,23 +61,32 @@ class WeatherMainActivity : AppCompatActivity() {
         tvCity = findViewById(R.id.tvCity)
         tvSunset = findViewById(R.id.tvSunset)
         tvSunrise = findViewById(R.id.tvSunrise)
-        btVar1 = findViewById(R.id.btVar1)
+//        btVar1 = findViewById(R.id.btVar1)
 
         // create an instance of the Fused
         // Location Provider Client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         Log.e("lat", weather_url1)
 
+        checkPermission()
+        setTextViewVisible()
+        obtainLocation()
+
+        tvTemp.visibility = View.VISIBLE
+        tvCity.visibility = View.VISIBLE
+        tvSunset.visibility = View.VISIBLE
+        tvSunrise.visibility = View.VISIBLE
+
         // on clicking this button function to
         // get the coordinates will be called
-        btVar1.setOnClickListener {
-            Log.e("lat", "onClick")
-            // function to find the coordinates
-            // of the last location
-            checkPermission()
-            setTextViewVisible()
-            obtainLocation()
-        }
+//        btVar1.setOnClickListener {
+//            Log.e("lat", "onClick")
+//            // function to find the coordinates
+//            // of the last location
+//            checkPermission()
+//            setTextViewVisible()
+//            obtainLocation()
+//        }
     }
 
     private fun setTextViewVisible() {
@@ -135,6 +144,7 @@ class WeatherMainActivity : AppCompatActivity() {
                     val weatherArray = obj2.getJSONObject("weather")
                     Log.e("weather", weatherArray.toString())
                     val weatherArrayIcon = weatherArray.getString("icon")
+                    Log.e("weatherIcon", weatherArrayIcon.toString())
                     tvTemp.text = obj2.getString("temp")
                     tvCity.text = obj2.getString("city_name")
                     tvSunset.text = obj2.getString("sunset")
@@ -142,9 +152,9 @@ class WeatherMainActivity : AppCompatActivity() {
                     val requestOptions = RequestOptions()
                     requestOptions.error(Utils.randomDrawbleColor)
                     Glide.with(this)
-                            .load(weatherArrayIcon)
+                            .load("https://www.weatherbit.io/static/img/icons/" + weatherArrayIcon.toString() + ".png")
 //                            .apply(requestOptions)
-                            .transition(DrawableTransitionOptions.withCrossFade())
+//                            .transition(DrawableTransitionOptions.withCrossFade())
                             .into(ivWeather)
                 },
                 //In case of any error
