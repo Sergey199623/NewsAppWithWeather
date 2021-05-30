@@ -164,12 +164,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             intent.putExtra("source", article.getSource().getName());
             intent.putExtra("author", article.getAuthor());
 
-//            Pair<View, String> pair = Pair.create((View)imageView,
-//                    ViewCompat.getTransitionName(imageView));
-//            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                    this, pair);
             startActivity(intent);
-//            startActivity(intent, activityOptionsCompat.toBundle());
         });
     }
 
@@ -213,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_weather) {
-            Intent intent = new Intent(this, WeatherActivity.class);
+            Intent intent = new Intent(this, WeatherMainActivity.class);
             startActivity(intent);
         } else if (id == R.id.action_settings) {
 //            try {
